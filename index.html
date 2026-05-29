@@ -71,6 +71,9 @@
   .nav-links a:hover{opacity:1;text-decoration:none}
   .burger{display:none;background:none;border:none;cursor:pointer;color:var(--text);padding:8px}
   .burger svg{width:18px;height:18px}
+  .nav-close{display:none;position:absolute;top:18px;right:20px;background:none;border:none;cursor:pointer;color:var(--text);padding:6px}
+  .nav-close svg{width:20px;height:20px}
+  .nav-backdrop{display:none}
 
   /* Apple pill-style buttons */
   .btn{
@@ -252,9 +255,22 @@
 
   /* Responsive */
   @media(max-width:780px){
-    .nav-links{position:fixed;inset:48px 0 0 0;flex-direction:column;justify-content:flex-start;gap:0;background:rgba(0,0,0,0.96);backdrop-filter:blur(20px);transform:translateY(-110%);transition:transform .35s;padding:30px 0}
+    .nav-backdrop{display:block;position:fixed;inset:0;z-index:150;background:rgba(0,0,0,0.55);
+      -webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px);
+      opacity:0;visibility:hidden;transition:opacity .35s ease,visibility .35s ease}
+    .nav-backdrop.open{opacity:1;visibility:visible}
+    .nav-links{position:fixed;top:0;right:0;z-index:200;
+      height:100vh;height:100dvh;
+      width:min(80vw,300px);
+      flex-direction:column;justify-content:flex-start;align-items:stretch;gap:0;
+      background:#0c0c0e;border-left:1px solid var(--hairline);
+      box-shadow:-24px 0 70px rgba(0,0,0,0.55);
+      transform:translateX(100%);transition:transform .4s cubic-bezier(.4,0,.2,1);
+      padding:74px 0 30px;overflow-y:auto}
     .nav-links.open{transform:none}
-    .nav-links a{padding:18px 22px;border-bottom:1px solid var(--hairline);width:100%;font-size:1.1rem}
+    .nav-links a{padding:17px 28px;border-bottom:1px solid var(--hairline);width:100%;font-size:1.05rem;opacity:1}
+    .nav-links a:first-of-type{border-top:1px solid var(--hairline)}
+    .nav-close{display:block}
     .burger{display:block}
     .stats{grid-template-columns:repeat(2,1fr);gap:36px}
     .about .meta-card{grid-template-columns:1fr}
@@ -274,6 +290,9 @@
   <div class="nav-inner">
     <div class="logo">Samarth Kulkarni</div>
     <div class="nav-links" id="navLinks">
+      <button class="nav-close" id="navClose" aria-label="Close menu">
+        <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4l12 12M16 4L4 16"/></svg>
+      </button>
       <a href="#about">About</a>
       <a href="#experience">Experience</a>
       <a href="#initiatives">Work</a>
@@ -287,6 +306,7 @@
     </button>
   </div>
 </nav>
+<div class="nav-backdrop" id="navBackdrop"></div>
 
 <!-- HERO -->
 <header class="hero container">
@@ -525,8 +545,14 @@
   document.getElementById('yr').textContent = new Date().getFullYear();
 
   const burger = document.getElementById('burger'), navLinks = document.getElementById('navLinks');
-  burger.addEventListener('click', () => navLinks.classList.toggle('open'));
-  navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
+  const navBackdrop = document.getElementById('navBackdrop'), navClose = document.getElementById('navClose');
+  function openMenu(){ navLinks.classList.add('open'); navBackdrop.classList.add('open'); document.body.style.overflow = 'hidden'; }
+  function closeMenu(){ navLinks.classList.remove('open'); navBackdrop.classList.remove('open'); document.body.style.overflow = ''; }
+  burger.addEventListener('click', openMenu);
+  navClose.addEventListener('click', closeMenu);
+  navBackdrop.addEventListener('click', closeMenu);
+  navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
+  addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
 
   const io = new IntersectionObserver((entries) => {
     entries.forEach(en => { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } });
