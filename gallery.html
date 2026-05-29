@@ -36,7 +36,7 @@
     display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
   .photo{position:relative;border-radius:16px;overflow:hidden;aspect-ratio:4/3;cursor:pointer;
     background:linear-gradient(135deg,#141416,#0a0a0c);border:1px solid var(--hairline)}
-  .photo img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .55s cubic-bezier(.2,.7,.3,1)}
+  .photo img{width:100%;height:100%;object-fit:cover;display:block;position:relative;z-index:1;transition:transform .55s cubic-bezier(.2,.7,.3,1)}
   .photo:hover img{transform:scale(1.06)}
   .photo .ph-fallback{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;color:var(--dimmer);font-size:.78rem;text-align:center;padding:16px}
   .photo .ph-fallback svg{width:30px;height:30px;opacity:.5}
@@ -95,13 +95,11 @@
      ============================================================ */
   const photos = [
     { src: "photos/1.jpg",  cap: "Burj Khalifa · Dubai" },
-    { src: "photos/2.jpg",  cap: "Dubai Marina" },
-    { src: "photos/3.jpg",  cap: "Downtown Dubai" },
-    { src: "photos/4.jpg",  cap: "Palm Jumeirah" },
-    { src: "photos/5.jpg",  cap: "Dubai skyline at dusk" },
-    { src: "photos/6.jpg",  cap: "On the road" },
-    // { src: "photos/7.jpg",  cap: "Your caption here" },
-    // { src: "photos/8.jpg",  cap: "Your caption here" },
+    { src: "photos/2.jpg",  cap: "Downtown Dubai at night" },
+    { src: "photos/3.jpg",  cap: "Palm Jumeirah, from the top" },
+    // Add more photos here as you take them — drop the file in /photos and add a line:
+    // { src: "photos/4.jpg",  cap: "Your caption here" },
+    // { src: "photos/5.jpg",  cap: "Your caption here" },
   ];
 
   const cameraSvg = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="12" cy="12" r="3.2"/></svg>';

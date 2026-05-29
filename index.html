@@ -234,7 +234,7 @@
   .photo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
   .photo{position:relative;border-radius:16px;overflow:hidden;aspect-ratio:4/3;cursor:pointer;
     background:linear-gradient(135deg,#141416,#0a0a0c);border:1px solid var(--hairline)}
-  .photo img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .55s cubic-bezier(.2,.7,.3,1)}
+  .photo img{width:100%;height:100%;object-fit:cover;display:block;position:relative;z-index:1;transition:transform .55s cubic-bezier(.2,.7,.3,1)}
   .photo:hover img{transform:scale(1.06)}
   .photo .ph-fallback{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;
     gap:10px;color:var(--dimmer);font-size:.78rem;letter-spacing:.02em;text-align:center;padding:16px}
@@ -565,15 +565,15 @@
       <img src="photos/1.jpg" alt="Burj Khalifa, Dubai" loading="lazy" onerror="this.style.display='none'">
       <div class="cap">Burj Khalifa · Dubai</div>
     </div>
-    <div class="photo reveal d1" data-cap="Dubai Marina">
+    <div class="photo reveal d1" data-cap="Downtown Dubai at night">
       <div class="ph-fallback"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="12" cy="12" r="3.2"/></svg>photos/2.jpg</div>
-      <img src="photos/2.jpg" alt="Dubai Marina" loading="lazy" onerror="this.style.display='none'">
-      <div class="cap">Dubai Marina</div>
+      <img src="photos/2.jpg" alt="Downtown Dubai at night" loading="lazy" onerror="this.style.display='none'">
+      <div class="cap">Downtown Dubai at night</div>
     </div>
-    <div class="photo reveal d2" data-cap="Downtown Dubai">
+    <div class="photo reveal d2" data-cap="Palm Jumeirah, from the top">
       <div class="ph-fallback"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="12" cy="12" r="3.2"/></svg>photos/3.jpg</div>
-      <img src="photos/3.jpg" alt="Downtown Dubai" loading="lazy" onerror="this.style.display='none'">
-      <div class="cap">Downtown Dubai</div>
+      <img src="photos/3.jpg" alt="Palm Jumeirah from the Burj Khalifa" loading="lazy" onerror="this.style.display='none'">
+      <div class="cap">Palm Jumeirah, from the top</div>
     </div>
   </div>
   <div class="reveal" style="text-align:center;margin-top:40px">
