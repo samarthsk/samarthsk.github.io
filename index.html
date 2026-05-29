@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Samarth Kulkarni — Software Engineer</title>
+<meta name="description" content="Samarth Kulkarni — Software Engineer specializing in Java & Capital Markets Technology. Building post-trade clearing systems for Morgan Stanley at PwC." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#070A12;
+    --bg-2:#0B0F1C;
+    --surface:#101627;
+    --surface-2:#141B30;
+    --border:rgba(255,255,255,0.08);
+    --border-bright:rgba(45,212,191,0.35);
+    --text:#E8ECF5;
+    --dim:#8B96AD;
+    --dimmer:#5C6680;
+    --accent:#2DD4BF;
+    --accent-2:#F5B944;
+    --accent-soft:rgba(45,212,191,0.12);
+    --maxw:1180px;
+    --display:'Syne',sans-serif;
+    --body:'Hanken Grotesk',sans-serif;
+    --mono:'JetBrains Mono',monospace;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--body);
+    line-height:1.6;
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+  }
+  ::selection{background:var(--accent);color:#04140F}
+
+  /* ---------- Animated background ---------- */
+  .bg-fx{position:fixed;inset:0;z-index:-2;overflow:hidden;background:
+    radial-gradient(900px 600px at 80% -10%, rgba(45,212,191,0.10), transparent 60%),
+    radial-gradient(800px 600px at 10% 20%, rgba(245,185,68,0.06), transparent 55%),
+    var(--bg);}
+  .bg-grid{position:fixed;inset:0;z-index:-2;
+    background-image:linear-gradient(var(--border) 1px,transparent 1px),linear-gradient(90deg,var(--border) 1px,transparent 1px);
+    background-size:60px 60px;
+    mask-image:radial-gradient(ellipse 80% 60% at 50% 0%,#000 30%,transparent 80%);
+    -webkit-mask-image:radial-gradient(ellipse 80% 60% at 50% 0%,#000 30%,transparent 80%);
+    opacity:.5;}
+  .orb{position:fixed;border-radius:50%;filter:blur(80px);z-index:-2;opacity:.5;animation:float 18s ease-in-out infinite}
+  .orb.a{width:420px;height:420px;background:radial-gradient(circle,rgba(45,212,191,.35),transparent 70%);top:-100px;right:-80px}
+  .orb.b{width:360px;height:360px;background:radial-gradient(circle,rgba(245,185,68,.22),transparent 70%);bottom:5%;left:-120px;animation-delay:-6s}
+  @keyframes float{0%,100%{transform:translate(0,0)}50%{transform:translate(40px,-50px)}}
+  .noise{position:fixed;inset:0;z-index:-1;opacity:.035;pointer-events:none;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+  /* cursor glow */
+  .cursor-glow{position:fixed;width:400px;height:400px;border-radius:50%;pointer-events:none;z-index:0;
+    background:radial-gradient(circle,rgba(45,212,191,.07),transparent 65%);
+    transform:translate(-50%,-50%);transition:opacity .3s;left:50%;top:50%}
+
+  /* ---------- Nav ---------- */
+  nav{position:fixed;top:0;left:0;right:0;z-index:50;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:18px clamp(20px,5vw,60px);
+    backdrop-filter:blur(10px);
+    background:linear-gradient(180deg,rgba(7,10,18,.85),rgba(7,10,18,0));
+    transition:background .3s,border-color .3s;border-bottom:1px solid transparent}
+  nav.scrolled{background:rgba(8,11,20,.9);border-bottom:1px solid var(--border)}
+  .logo{font-family:var(--mono);font-weight:700;font-size:1rem;letter-spacing:.5px;color:var(--text);display:flex;gap:8px;align-items:center}
+  .logo .dot{width:9px;height:9px;border-radius:50%;background:var(--accent);box-shadow:0 0 12px var(--accent);animation:pulse 2s infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+  .nav-links{display:flex;gap:30px;align-items:center}
+  .nav-links a{color:var(--dim);text-decoration:none;font-size:.9rem;font-weight:500;position:relative;transition:color .25s}
+  .nav-links a::after{content:'';position:absolute;left:0;bottom:-5px;width:0;height:2px;background:var(--accent);transition:width .3s}
+  .nav-links a:hover{color:var(--text)}
+  .nav-links a:hover::after{width:100%}
+  .nav-cta{padding:9px 18px;border:1px solid var(--border-bright);border-radius:30px;color:var(--accent)!important;font-family:var(--mono);font-size:.82rem!important}
+  .nav-cta:hover{background:var(--accent-soft)}
+  .nav-cta::after{display:none}
+  .burger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none}
+  .burger span{width:24px;height:2px;background:var(--text);transition:.3s}
+
+  /* ---------- Layout ---------- */
+  section{padding:clamp(70px,10vh,120px) clamp(20px,5vw,60px);max-width:var(--maxw);margin:0 auto;position:relative}
+  .eyebrow{font-family:var(--mono);color:var(--accent);font-size:.82rem;letter-spacing:2px;text-transform:uppercase;display:flex;align-items:center;gap:12px;margin-bottom:18px}
+  .eyebrow::before{content:'';width:34px;height:1px;background:var(--accent)}
+  h2.title{font-family:var(--display);font-size:clamp(2rem,5vw,3.2rem);font-weight:800;line-height:1.05;letter-spacing:-1px;margin-bottom:14px}
+
+  /* ---------- Hero ---------- */
+  .hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;max-width:var(--maxw);margin:0 auto;padding-top:120px}
+  .hero .status{display:inline-flex;align-items:center;gap:10px;font-family:var(--mono);font-size:.82rem;color:var(--dim);
+    border:1px solid var(--border);border-radius:30px;padding:8px 16px;margin-bottom:30px;width:fit-content;background:rgba(255,255,255,.02)}
+  .hero .status .live{width:8px;height:8px;border-radius:50%;background:var(--accent);box-shadow:0 0 10px var(--accent);animation:pulse 1.6s infinite}
+  .hero h1{font-family:var(--display);font-weight:800;font-size:clamp(2.8rem,9vw,6.5rem);line-height:.95;letter-spacing:-3px;margin-bottom:8px}
+  .hero h1 .grad{background:linear-gradient(120deg,var(--accent),var(--accent-2));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .hero .role{font-family:var(--mono);font-size:clamp(1rem,2.4vw,1.45rem);color:var(--dim);margin-bottom:28px;height:1.5em}
+  .hero .role .typed{color:var(--accent)}
+  .hero .role .caret{color:var(--accent);animation:blink 1s step-end infinite}
+  @keyframes blink{50%{opacity:0}}
+  .hero p.lead{max-width:620px;color:var(--dim);font-size:1.08rem;margin-bottom:38px}
+  .hero p.lead strong{color:var(--text);font-weight:600}
+  .cta-row{display:flex;gap:16px;flex-wrap:wrap}
+  .btn{padding:14px 28px;border-radius:10px;font-weight:600;font-size:.95rem;text-decoration:none;display:inline-flex;align-items:center;gap:10px;transition:transform .2s,box-shadow .3s,background .25s;cursor:pointer;border:1px solid transparent}
+  .btn-primary{background:var(--accent);color:#04140F;box-shadow:0 8px 30px rgba(45,212,191,.25)}
+  .btn-primary:hover{transform:translateY(-3px);box-shadow:0 14px 40px rgba(45,212,191,.4)}
+  .btn-ghost{border:1px solid var(--border);color:var(--text);background:rgba(255,255,255,.02)}
+  .btn-ghost:hover{border-color:var(--border-bright);background:var(--accent-soft);transform:translateY(-3px)}
+
+  /* ---------- Ticker ---------- */
+  .ticker-wrap{border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:rgba(255,255,255,.015);overflow:hidden;white-space:nowrap;padding:16px 0}
+  .ticker{display:inline-flex;gap:0;animation:scroll 32s linear infinite}
+  .ticker:hover{animation-play-state:paused}
+  .ticker span{font-family:var(--mono);font-size:.92rem;color:var(--dim);padding:0 26px;display:inline-flex;align-items:center;gap:26px}
+  .ticker span b{color:var(--accent);font-weight:500}
+  .ticker .sep{color:var(--accent-2)}
+  @keyframes scroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+  /* ---------- Stats ---------- */
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+  .stat{border:1px solid var(--border);border-radius:16px;padding:30px 24px;background:linear-gradient(160deg,var(--surface),var(--bg-2));position:relative;overflow:hidden;transition:border-color .3s,transform .3s}
+  .stat:hover{border-color:var(--border-bright);transform:translateY(-4px)}
+  .stat::before{content:'';position:absolute;top:0;left:0;width:100%;height:2px;background:linear-gradient(90deg,var(--accent),transparent)}
+  .stat .num{font-family:var(--display);font-size:clamp(2.2rem,5vw,3.2rem);font-weight:800;color:var(--text);line-height:1}
+  .stat .num .plus{color:var(--accent)}
+  .stat .label{color:var(--dim);font-size:.9rem;margin-top:8px}
+
+  /* ---------- About ---------- */
+  .about-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:50px;align-items:start}
+  .about-text p{color:var(--dim);font-size:1.06rem;margin-bottom:18px}
+  .about-text strong{color:var(--text);font-weight:600}
+  .about-text .hl{color:var(--accent)}
+  .info-card{border:1px solid var(--border);border-radius:16px;padding:28px;background:var(--surface);font-family:var(--mono);font-size:.9rem}
+  .info-card .row{display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px dashed var(--border)}
+  .info-card .row:last-child{border-bottom:none}
+  .info-card .k{color:var(--dimmer)}
+  .info-card .v{color:var(--text);text-align:right}
+  .info-card .v.accent{color:var(--accent)}
+
+  /* ---------- Skills ---------- */
+  .skill-groups{display:grid;grid-template-columns:repeat(2,1fr);gap:22px}
+  .skill-cat{border:1px solid var(--border);border-radius:16px;padding:26px;background:linear-gradient(160deg,var(--surface),var(--bg-2));transition:border-color .3s,transform .3s}
+  .skill-cat:hover{border-color:var(--border-bright);transform:translateY(-4px)}
+  .skill-cat h3{font-family:var(--mono);font-size:.82rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--accent);margin-bottom:18px;display:flex;align-items:center;gap:10px}
+  .skill-cat h3 .idx{color:var(--dimmer)}
+  .pills{display:flex;flex-wrap:wrap;gap:9px}
+  .pill{font-size:.85rem;padding:7px 14px;border-radius:8px;background:rgba(255,255,255,.04);border:1px solid var(--border);color:var(--text);transition:.25s;cursor:default}
+  .pill:hover{background:var(--accent-soft);border-color:var(--border-bright);color:var(--accent);transform:translateY(-2px)}
+
+  /* ---------- Experience ---------- */
+  .timeline{position:relative;margin-top:20px}
+  .timeline::before{content:'';position:absolute;left:7px;top:6px;bottom:6px;width:2px;background:linear-gradient(180deg,var(--accent),var(--border) 80%)}
+  .exp{position:relative;padding-left:46px;margin-bottom:46px}
+  .exp:last-child{margin-bottom:0}
+  .exp .node{position:absolute;left:0;top:6px;width:16px;height:16px;border-radius:50%;background:var(--bg);border:2px solid var(--accent);box-shadow:0 0 0 4px rgba(45,212,191,.12)}
+  .exp .ehead{display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px;align-items:baseline;margin-bottom:4px}
+  .exp h3{font-family:var(--display);font-size:1.4rem;font-weight:700}
+  .exp .date{font-family:var(--mono);font-size:.85rem;color:var(--accent)}
+  .exp .org{color:var(--text);font-weight:600;margin-bottom:2px}
+  .exp .org .client{color:var(--accent-2)}
+  .exp .meta{font-family:var(--mono);font-size:.82rem;color:var(--dimmer);margin-bottom:16px}
+  .exp ul{list-style:none;display:flex;flex-direction:column;gap:9px}
+  .exp li{position:relative;padding-left:22px;color:var(--dim);font-size:.98rem}
+  .exp li::before{content:'▹';position:absolute;left:0;color:var(--accent)}
+  .exp li b{color:var(--text);font-weight:600}
+  .featured-tag{display:inline-block;font-family:var(--mono);font-size:.7rem;letter-spacing:1px;text-transform:uppercase;color:var(--accent);border:1px solid var(--border-bright);border-radius:6px;padding:3px 8px;margin-left:10px;vertical-align:middle}
+
+  /* ---------- Certs ---------- */
+  .cert-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:18px}
+  .cert{border:1px solid var(--border);border-radius:14px;padding:22px;background:var(--surface);display:flex;gap:16px;align-items:center;transition:.3s}
+  .cert:hover{border-color:var(--border-bright);transform:translateY(-4px);background:var(--surface-2)}
+  .cert .badge{min-width:46px;height:46px;border-radius:11px;background:var(--accent-soft);border:1px solid var(--border-bright);display:grid;place-items:center;font-family:var(--mono);font-weight:700;color:var(--accent);font-size:.9rem}
+  .cert .cname{font-weight:600;font-size:.98rem;line-height:1.3}
+  .cert .cdate{font-family:var(--mono);font-size:.78rem;color:var(--dimmer);margin-top:3px}
+
+  /* awards */
+  .awards{display:flex;flex-wrap:wrap;gap:12px;margin-top:8px}
+  .award{font-family:var(--mono);font-size:.85rem;color:var(--dim);border:1px solid var(--border);border-radius:30px;padding:9px 18px;background:rgba(255,255,255,.02);transition:.25s}
+  .award:hover{color:var(--accent-2);border-color:rgba(245,185,68,.4)}
+  .award span{color:var(--dimmer)}
+
+  /* ---------- Contact ---------- */
+  .contact{text-align:center}
+  .contact h2.title{font-size:clamp(2.4rem,7vw,4.5rem)}
+  .contact .grad{background:linear-gradient(120deg,var(--accent),var(--accent-2));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .contact p{color:var(--dim);max-width:520px;margin:0 auto 36px;font-size:1.1rem}
+  .contact-links{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+  footer{border-top:1px solid var(--border);padding:30px clamp(20px,5vw,60px);max-width:var(--maxw);margin:0 auto;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-family:var(--mono);font-size:.82rem;color:var(--dimmer)}
+  footer a{color:var(--dim);text-decoration:none}
+  footer a:hover{color:var(--accent)}
+
+  /* reveal */
+  .reveal{opacity:0;transform:translateY(30px);transition:opacity .7s cubic-bezier(.2,.7,.3,1),transform .7s cubic-bezier(.2,.7,.3,1)}
+  .reveal.in{opacity:1;transform:none}
+  .reveal.d1{transition-delay:.08s}.reveal.d2{transition-delay:.16s}.reveal.d3{transition-delay:.24s}.reveal.d4{transition-delay:.32s}
+
+  /* responsive */
+  @media(max-width:860px){
+    .nav-links{position:fixed;inset:0 0 0 auto;width:min(78vw,320px);flex-direction:column;justify-content:center;gap:28px;
+      background:var(--bg-2);border-left:1px solid var(--border);transform:translateX(100%);transition:transform .35s;padding:40px}
+    .nav-links.open{transform:none}
+    .burger{display:flex;z-index:60}
+    .about-grid{grid-template-columns:1fr}
+    .skill-groups{grid-template-columns:1fr}
+    .stats{grid-template-columns:repeat(2,1fr)}
+  }
+  @media(max-width:480px){.stats{grid-template-columns:1fr}}
+  @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<div class="bg-fx"></div>
+<div class="bg-grid"></div>
+<div class="orb a"></div>
+<div class="orb b"></div>
+<div class="noise"></div>
+<div class="cursor-glow" id="cursorGlow"></div>
+
+<nav id="nav">
+  <div class="logo"><span class="dot"></span>samarth.dev</div>
+  <div class="nav-links" id="navLinks">
+    <a href="#about">About</a>
+    <a href="#skills">Skills</a>
+    <a href="#experience">Experience</a>
+    <a href="#certifications">Certifications</a>
+    <a href="#contact" class="nav-cta">Get in touch</a>
+  </div>
+  <button class="burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="status reveal in"><span class="live"></span>Available for opportunities · Open to Dubai, UAE</div>
+  <h1 class="reveal in d1">Samarth<br><span class="grad">Kulkarni</span></h1>
+  <div class="role reveal in d2"><span class="typed" id="typed"></span><span class="caret">_</span></div>
+  <p class="lead reveal in d3">Software Engineer building <strong>mission-critical trading technology</strong>. Currently engineering a post-trade clearing platform for <strong>Morgan Stanley</strong> at <strong>PwC</strong>, processing trades across 35+ global markets with Java, cloud, and event-driven systems.</p>
+  <div class="cta-row reveal in d4">
+    <a href="#contact" class="btn btn-primary">Let's connect →</a>
+    <a href="Samarth_Kulkarni_Resume.pdf" class="btn btn-ghost" download>↓ Download Résumé</a>
+  </div>
+</header>
+
+<!-- TICKER -->
+<div class="ticker-wrap">
+  <div class="ticker" id="ticker"></div>
+</div>
+
+<!-- STATS -->
+<section id="stats" style="padding-top:80px;padding-bottom:40px">
+  <div class="stats">
+    <div class="stat reveal"><div class="num"><span data-count="4">0</span><span class="plus">+</span></div><div class="label">Years of Experience</div></div>
+    <div class="stat reveal d1"><div class="num"><span data-count="35">0</span><span class="plus">+</span></div><div class="label">Global Markets Served</div></div>
+    <div class="stat reveal d2"><div class="num"><span data-count="20">0</span><span class="plus">+</span></div><div class="label">JIRA Items Delivered</div></div>
+    <div class="stat reveal d3"><div class="num"><span data-count="5">0</span></div><div class="label">Certifications</div></div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="eyebrow reveal">01 — About</div>
+  <h2 class="title reveal">Engineering the rails of <span style="color:var(--accent)">global trade</span></h2>
+  <div class="about-grid" style="margin-top:30px">
+    <div class="about-text">
+      <p class="reveal">I'm a <strong>Software Engineer</strong> with <strong>4+ years</strong> of experience designing and delivering large-scale, mission-critical enterprise applications. My focus is the demanding world of <span class="hl">capital markets technology</span> — where reliability, precision, and regulatory compliance are non-negotiable.</p>
+      <p class="reveal d1">At <strong>PwC</strong>, I work on-site for <strong>Morgan Stanley</strong> on <span class="hl">MARS</span> — the Matching, Allocation &amp; Registration System that clears trades across <strong>35+ global markets</strong>. I own features end-to-end: research, development, testing, change management, and direct collaboration with business users.</p>
+      <p class="reveal d2">I care about <strong>clean, modern systems</strong> — from migrating legacy codebases to <strong>JDK 21</strong>, to wiring up <strong>OpenTelemetry + Grafana</strong> observability, to automating operations in Python. Always learning, always shipping.</p>
+    </div>
+    <div class="info-card reveal d1">
+      <div class="row"><span class="k">// role</span><span class="v">Senior Associate</span></div>
+      <div class="row"><span class="k">// company</span><span class="v accent">PwC India</span></div>
+      <div class="row"><span class="k">// client</span><span class="v">Morgan Stanley</span></div>
+      <div class="row"><span class="k">// focus</span><span class="v">Capital Markets</span></div>
+      <div class="row"><span class="k">// location</span><span class="v">Bangalore, IN</span></div>
+      <div class="row"><span class="k">// open_to</span><span class="v accent">Dubai, UAE</span></div>
+      <div class="row"><span class="k">// methodology</span><span class="v">Agile · Kanban</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="eyebrow reveal">02 — Tech Stack</div>
+  <h2 class="title reveal">Tools I build with</h2>
+  <div class="skill-groups" style="margin-top:34px">
+    <div class="skill-cat reveal"><h3><span class="idx">01</span> Languages</h3><div class="pills">
+      <span class="pill">Java (JDK 8–21)</span><span class="pill">Python</span><span class="pill">JavaScript</span><span class="pill">SQL</span><span class="pill">HTML / CSS</span></div></div>
+    <div class="skill-cat reveal d1"><h3><span class="idx">02</span> Frameworks</h3><div class="pills">
+      <span class="pill">Spring Boot</span><span class="pill">Spring MVC</span><span class="pill">Hibernate / JPA</span><span class="pill">Thymeleaf</span><span class="pill">Bootstrap</span></div></div>
+    <div class="skill-cat reveal"><h3><span class="idx">03</span> Cloud &amp; DevOps</h3><div class="pills">
+      <span class="pill">Microsoft Azure</span><span class="pill">AKS</span><span class="pill">Azure Key Vault</span><span class="pill">AWS (EC2, S3, Lambda)</span><span class="pill">DynamoDB</span><span class="pill">Docker</span><span class="pill">Azure DevOps</span><span class="pill">Snowflake</span></div></div>
+    <div class="skill-cat reveal d1"><h3><span class="idx">04</span> Observability &amp; Data</h3><div class="pills">
+      <span class="pill">OpenTelemetry</span><span class="pill">Grafana</span><span class="pill">Message Queues</span><span class="pill">PostgreSQL</span><span class="pill">Oracle</span><span class="pill">MySQL</span></div></div>
+    <div class="skill-cat reveal"><h3><span class="idx">05</span> Tools &amp; Practices</h3><div class="pills">
+      <span class="pill">Git / GitHub</span><span class="pill">Maven</span><span class="pill">Jira</span><span class="pill">Veracode</span><span class="pill">CI/CD</span><span class="pill">SAST / SCA</span><span class="pill">Change Mgmt (TCM)</span></div></div>
+    <div class="skill-cat reveal d1"><h3><span class="idx">06</span> Domain</h3><div class="pills">
+      <span class="pill">Post-Trade Clearing</span><span class="pill">SEBI Regulations</span><span class="pill">Capital Markets</span><span class="pill">Trade Settlement</span><span class="pill">Market Onboarding</span></div></div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="eyebrow reveal">03 — Experience</div>
+  <h2 class="title reveal">Where I've made an impact</h2>
+  <div class="timeline" style="margin-top:36px">
+
+    <div class="exp reveal">
+      <div class="node"></div>
+      <div class="ehead">
+        <h3>Senior Associate — Software Engineer <span class="featured-tag">★ Current</span></h3>
+        <span class="date">Apr 2025 — Present</span>
+      </div>
+      <div class="org">PwC India · <span class="client">Client: Morgan Stanley</span></div>
+      <div class="meta">MARS — Matching, Allocation &amp; Registration System · Post-trade clearing · 35+ markets · Bangalore, IN</div>
+      <ul>
+        <li>Develop and enhance core <b>trade-clearing functionality</b> in Java, delivering <b>20+ JIRA items</b> spanning new features, fixes, and production patches.</li>
+        <li>Led <b>onboarding of new markets</b> onto the platform, expanding clearing coverage with market-specific rules.</li>
+        <li>Implemented <b>SEBI regulatory</b> requirements for the India market, including option-premium regulatory changes.</li>
+        <li>Engineered observability with <b>OpenTelemetry → Grafana</b> dashboards for real-time monitoring of system health and trade flow.</li>
+        <li>Built <b>queue-based message processing</b> for reliable high-volume trade handling, and automated EOD reporting &amp; margin alerts in <b>Python</b>.</li>
+        <li>Migrated source control from Bitbucket to <b>GitHub</b> and upgraded the codebase from <b>JDK 8 → JDK 21</b>.</li>
+        <li>Owned the full lifecycle on-site: requirements, dev, dev/QA testing, test evidence, <b>TCM change management</b>, and deployment — plus direct business-user demos &amp; sign-offs.</li>
+      </ul>
+    </div>
+
+    <div class="exp reveal">
+      <div class="node"></div>
+      <div class="ehead">
+        <h3>Software Engineer</h3>
+        <span class="date">Oct 2021 — Apr 2025</span>
+      </div>
+      <div class="org">Tech Mahindra · <span class="client">Client: AT&amp;T Services Inc.</span></div>
+      <div class="meta">Telecom workforce platform · 60,000+ field technicians · Bangalore, IN</div>
+      <ul>
+        <li>Integrated time-reporting screens used by a <b>60,000+ technician</b> workforce into the Infor system.</li>
+        <li>Designed, coded &amp; tested core features of a web-based <b>Java</b> application managing DSL/POTS/U-Verse services across the US.</li>
+        <li>Migrated a Java app from on-prem to <b>Microsoft Azure</b>, including Oracle → PostgreSQL migration and SQL optimization.</li>
+        <li>Performed golden-image upgrades of VMs &amp; <b>AKS clusters</b>; implemented <b>OpenID Connect</b> auth and Azure Key Vault integration.</li>
+        <li>Managed SSL certificates, <b>SAST/SCA scanning</b>, and Python automation (cron jobs, SMTP mail services).</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section id="certifications">
+  <div class="eyebrow reveal">04 — Certifications</div>
+  <h2 class="title reveal">Credentials</h2>
+  <div class="cert-grid" style="margin-top:32px">
+    <div class="cert reveal"><div class="badge">DP<br>100</div><div><div class="cname">Azure Data Scientist Associate</div><div class="cdate">Microsoft · Dec 2024</div></div></div>
+    <div class="cert reveal d1"><div class="badge">AWS</div><div><div class="cname">AWS Certified Cloud Practitioner</div><div class="cdate">Amazon · Dec 2023</div></div></div>
+    <div class="cert reveal d2"><div class="badge">DP<br>900</div><div><div class="cname">Azure Data Fundamentals</div><div class="cdate">Microsoft · May 2022</div></div></div>
+    <div class="cert reveal"><div class="badge">AZ<br>900</div><div><div class="cname">Azure Fundamentals</div><div class="cdate">Microsoft · May 2022</div></div></div>
+    <div class="cert reveal d1"><div class="badge">CC<br>NA</div><div><div class="cname">Cisco Certified Network Associate</div><div class="cdate">Cisco · Jul 2021</div></div></div>
+  </div>
+
+  <div class="eyebrow reveal" style="margin-top:60px">Recognition</div>
+  <div class="awards">
+    <div class="award reveal">Bravo Award <span>· Tech Mahindra '24</span></div>
+    <div class="award reveal d1">AQT Ninja <span>· '23</span></div>
+    <div class="award reveal d2">Best Team <span>· '22</span></div>
+    <div class="award reveal d3">Pat on the Back <span>· '22</span></div>
+    <div class="award reveal d4">Spotted <span>· '22</span></div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="contact">
+  <div class="eyebrow reveal" style="justify-content:center">05 — Contact</div>
+  <h2 class="title reveal">Let's build something <span class="grad">great</span></h2>
+  <p class="reveal d1">I'm open to Software Engineering roles — especially in <strong style="color:var(--text)">Dubai &amp; the UAE</strong>. Whether it's capital markets tech or a new challenge, let's talk.</p>
+  <div class="contact-links reveal d2">
+    <a href="mailto:samarth_kulkarni@icloud.com" class="btn btn-primary">✉ samarth_kulkarni@icloud.com</a>
+    <a href="https://www.linkedin.com/in/imsamarthkulkarni/" target="_blank" rel="noopener" class="btn btn-ghost">in · LinkedIn</a>
+    <a href="tel:+917760775790" class="btn btn-ghost">☎ +91 77607 75790</a>
+  </div>
+</section>
+
+<footer>
+  <div>© <span id="yr"></span> Samarth Kulkarni · Built with care</div>
+  <div>Bangalore, India → Dubai, UAE</div>
+</footer>
+
+<script>
+  // year
+  document.getElementById('yr').textContent = new Date().getFullYear();
+
+  // nav scroll state
+  const nav = document.getElementById('nav');
+  addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY > 30));
+
+  // burger menu
+  const burger = document.getElementById('burger'), navLinks = document.getElementById('navLinks');
+  burger.addEventListener('click', () => navLinks.classList.toggle('open'));
+  navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
+
+  // cursor glow
+  const glow = document.getElementById('cursorGlow');
+  addEventListener('mousemove', e => { glow.style.left = e.clientX + 'px'; glow.style.top = e.clientY + 'px'; });
+
+  // typed role
+  const roles = ['Java Developer','Capital Markets Engineer','Trade Clearing Systems','Cloud & Backend Dev','Problem Solver'];
+  const typedEl = document.getElementById('typed');
+  let ri = 0, ci = 0, deleting = false;
+  function type(){
+    const cur = roles[ri];
+    typedEl.textContent = cur.slice(0, ci);
+    if(!deleting && ci < cur.length){ ci++; setTimeout(type, 70); }
+    else if(!deleting && ci === cur.length){ deleting = true; setTimeout(type, 1600); }
+    else if(deleting && ci > 0){ ci--; setTimeout(type, 35); }
+    else { deleting = false; ri = (ri+1) % roles.length; setTimeout(type, 350); }
+  }
+  type();
+
+  // ticker
+  const items = ['Java','Spring Boot','Morgan Stanley','OpenTelemetry','Grafana','JDK 21','PostgreSQL','Microsoft Azure','Python','AWS','Message Queues','SEBI Compliance','35+ Markets','Docker','GitHub','Trade Clearing','CI/CD','Kanban'];
+  const tEl = document.getElementById('ticker');
+  function buildTicker(){
+    let html = '';
+    const seq = [...items, ...items]; // duplicate for seamless loop
+    seq.forEach(it => { html += `<span><b>◆</b> ${it} <span class="sep">/</span></span>`; });
+    tEl.innerHTML = html;
+  }
+  buildTicker();
+
+  // reveal on scroll
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(en => { if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal:not(.in)').forEach(el => io.observe(el));
+
+  // count up stats
+  const counted = new Set();
+  const cio = new IntersectionObserver((entries) => {
+    entries.forEach(en => {
+      if(en.isIntersecting && !counted.has(en.target)){
+        counted.add(en.target);
+        const target = +en.target.dataset.count; let n = 0;
+        const step = Math.max(1, Math.ceil(target/40));
+        const tick = () => { n = Math.min(target, n+step); en.target.textContent = n; if(n<target) requestAnimationFrame(tick); };
+        tick();
+      }
+    });
+  }, { threshold: 0.6 });
+  document.querySelectorAll('[data-count]').forEach(el => cio.observe(el));
+</script>
+</body>
+</html>
